@@ -1,0 +1,4 @@
+include ':webploader-common'
+include ':webploader-desktop'
+include ':webploader-android'
+include 'desktop', 'android', 'core'

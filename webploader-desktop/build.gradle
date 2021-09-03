@@ -1,0 +1,45 @@
+plugins {
+    id 'java-library'
+
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+sourceSets.main.resources.srcDirs += [ "${buildDir}/natives/outputs" ]
+
+tasks.register("buildNatives") {
+    doLast{
+        exec {
+            def cmake = "C:\\Program Files\\CMake\\bin\\cmake"
+            def sourceDir = "${rootProject.projectDir}/webploader-android/src/main/cpp/"
+            def flags = '-DJAVA_CLASS_NAME=com_github_zumikua_webploader_desktop_DesktopNativeInterface'
+            commandLine cmake, "-S", sourceDir, "-B", "${buildDir}/natives", "-G", "Ninja", flags
+        }
+        exec {
+            workingDir "${buildDir}/natives"
+            commandLine "ninja"
+        }
+        copy {
+            from "${buildDir}/natives"
+            include "*.dll", "*.so", "*.dylib"
+            into "${buildDir}/natives/outputs"
+        }
+    }
+}
+
+tasks.register("clearNatives") {
+    doLast {
+        delete "${buildDir}/natives"
+    }
+}
+
+clean.dependsOn("clearNatives")
+
+jar.dependsOn("buildNatives")
+
+dependencies {
+    api project(":webploader-common")
+}
