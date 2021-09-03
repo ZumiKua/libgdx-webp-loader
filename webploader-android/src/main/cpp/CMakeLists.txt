@@ -50,7 +50,7 @@ if(NOT ANDROID)
         target_include_directories( webploader-native PRIVATE ${JNI_HEADER_DIR}/mac )
     endif()
 
-    if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    if(CMAKE_SIZEOF_VOID_P EQUAL 8 AND NOT(FORCE32) )
         set_target_properties(webploader-native PROPERTIES OUTPUT_NAME webploader-native64)
     endif()
 endif()
