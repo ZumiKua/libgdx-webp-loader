@@ -11,23 +11,41 @@ java {
 sourceSets.main.resources.srcDirs += [ "${buildDir}/natives/outputs" ]
 
 tasks.register("buildNatives") {
-    doLast{
-        exec {
-            def cmake = "C:\\Program Files\\CMake\\bin\\cmake"
-            def sourceDir = "${rootProject.projectDir}/webploader-android/src/main/cpp/"
-            def flags = '-DJAVA_CLASS_NAME=com_github_zumikua_webploader_desktop_DesktopNativeInterface'
-            commandLine cmake, "-S", sourceDir, "-B", "${buildDir}/natives", "-G", "Ninja", flags
-        }
-        exec {
-            workingDir "${buildDir}/natives"
-            commandLine "ninja"
-        }
-        copy {
-            from "${buildDir}/natives"
-            include "*.dll", "*.so", "*.dylib"
-            into "${buildDir}/natives/outputs"
+    def toolchainsArr
+    if(project.hasProperty('toolchains')) {
+        toolchainsArr = toolchains.split(',')
+    }
+    else {
+        toolchainsArr = ['host']
+    }
+    toolchainsArr.each { toolchain ->
+        doLast{
+            def toolchainFile = file(toolchain)
+            def toolchainName = toolchainFile.name - ".cmake"
+            def outputPath = "${buildDir}/natives/${toolchainName}"
+            mkdir outputPath
+            exec {
+
+                workingDir outputPath
+                def cmake = "cmake"
+                def sourceDir = "${rootProject.projectDir}/webploader-android/src/main/cpp/"
+                def className = '-DJAVA_CLASS_NAME=com_github_zumikua_webploader_desktop_DesktopNativeInterface'
+                def jniHeaderDir = "-DJNI_HEADER_DIR=${rootProject.projectDir}/jni_headers"
+                def toolchainDef = toolchain == 'host' ? "" : "-DCMAKE_TOOLCHAIN_FILE=${toolchainFile.absolutePath}"
+                commandLine cmake, "-G", "Ninja", className, jniHeaderDir, toolchainDef, sourceDir
+            }
+            exec {
+                workingDir outputPath
+                commandLine "ninja"
+            }
+            copy {
+                from outputPath
+                include "*.dll", "*.so", "*.dylib"
+                into "${buildDir}/natives/outputs"
+            }
         }
     }
+
 }
 
 tasks.register("clearNatives") {

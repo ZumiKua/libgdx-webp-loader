@@ -41,13 +41,13 @@ target_compile_definitions(webploader-native PRIVATE JAVA_CLASS_NAME=${JAVA_CLAS
 
 #NDK will handle jni.h for us.
 if(NOT ANDROID)
-    target_include_directories( webploader-native PRIVATE $ENV{JAVA_HOME}/include )
+    target_include_directories( webploader-native PRIVATE ${JNI_HEADER_DIR} )
     if(${CMAKE_SYSTEM_NAME} STREQUAL Windows)
-        target_include_directories( webploader-native PRIVATE $ENV{JAVA_HOME}/include/win32 )
+        target_include_directories( webploader-native PRIVATE ${JNI_HEADER_DIR}/win32 )
     elseif(${CMAKE_SYSTEM_NAME} STREQUAL Linux)
-        target_include_directories( webploader-native PRIVATE $ENV{JAVA_HOME}/include/linux )
+        target_include_directories( webploader-native PRIVATE ${JNI_HEADER_DIR}/linux )
     elseif(${CMAKE_SYSTEM_NAME} STREQUAL Darwin)
-        target_include_directories( webploader-native PRIVATE $ENV{JAVA_HOME}/include/linux )
+        target_include_directories( webploader-native PRIVATE ${JNI_HEADER_DIR}/mac )
     endif()
 
     if(CMAKE_SIZEOF_VOID_P EQUAL 8)
