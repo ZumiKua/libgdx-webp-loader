@@ -11,5 +11,5 @@ jobs:
               with:
                   name: artifacts
                   path: |
-                      webploader-common/libs/webploader-common-*.jar
+                      webploader-common/build/libs/webploader-common-*.jar
                       webploader-android/build/outputs/aar/webploader-android-release.aar
