@@ -6,7 +6,7 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - run: chmod +x ./gradlew
-            - run: ./gradlew webploader-common:build webploader-android:buildRelease
+            - run: ./gradlew webploader-common:build webploader-android:assembleRelease
             - uses: actions/upload-artifact@v2
               with:
                   name: artifacts
