@@ -5,4 +5,5 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
+            - run: chmod +x ./gradlew
             - run: ./gradlew webploader-common:build webploader-android:build
