@@ -4,27 +4,18 @@ jobs:
     build-android-and-common:
         runs-on: ubuntu-latest
         steps:
+            - run: sudo apt update
+            - run: sudo apt install -y mingw-w64 ninja-build gcc-multilib g++-multilib
             - uses: actions/checkout@v2
             - run: chmod +x ./gradlew
             - run: ./gradlew webploader-common:build webploader-android:assembleRelease
+            - run: >
+                  ./gradlew webploader-desktop:build
+                  -Ptoolchains=host,./.github/toolchains/linux32.cmake,./.github/toolchains/mingw32.cmake,./.github/toolchains/mingw64.cmake
             - uses: actions/upload-artifact@v2
               with:
                   name: artifacts
                   path: |
                       webploader-common/build/libs/webploader-common-*.jar
                       webploader-android/build/outputs/aar/webploader-android-release.aar
-
-    build-desktop:
-        runs-on: ubuntu-latest
-        steps:
-            - run: sudo apt update
-            - run: sudo apt install -y mingw-w64 ninja-build gcc-multilib g++-multilib
-            - uses: actions/checkout@v2
-            - run: chmod +x ./gradlew
-            - run: >
-                ./gradlew webploader-desktop:build
-                -Ptoolchains=host,./.github/toolchains/linux32.cmake,./.github/toolchains/mingw32.cmake,./.github/toolchains/mingw64.cmake
-            - uses: actions/upload-artifact@v2
-              with:
-                  name: artifacts
-                  path: webploader-desktop/build/libs/webploader-desktop-*.aar
+                      webploader-desktop/build/libs/webploader-desktop-*.jar
