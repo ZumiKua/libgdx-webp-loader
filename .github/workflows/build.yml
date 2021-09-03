@@ -6,4 +6,10 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - run: chmod +x ./gradlew
-            - run: ./gradlew webploader-common:build webploader-android:build
+            - run: ./gradlew webploader-common:build webploader-android:buildRelease
+            - uses: actions/upload-artifact@v2
+              with:
+                  name: artifacts
+                  path: |
+                      webploader-common/libs/webploader-common-*.jar
+                      webploader-android/build/outputs/aar/webploader-android-release.aar
