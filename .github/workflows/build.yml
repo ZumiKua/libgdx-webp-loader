@@ -17,7 +17,7 @@ jobs:
     build-desktop:
         runs-on: ubuntu-latest
         steps:
-            - run: apt install -y mingw-w64 ninja-build gcc-multilib
+            - run: sudo apt install -y mingw-w64 ninja-build gcc-multilib
             - uses: actions/checkout@v2
             - run: chmod +x ./gradlew
             - run: >
