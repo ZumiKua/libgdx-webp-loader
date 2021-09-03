@@ -20,8 +20,8 @@ tasks.register("buildNatives") {
     }
     toolchainsArr.each { toolchain ->
         doLast{
-            def toolchainFile = file(toolchain)
-            def toolchainName = toolchainFile.name - ".cmake"
+            def toolchainFile = rootProject.projectDir.resolve(toolchain)
+            def toolchainName = toolchain == "host" ? "host" : toolchainFile.name - ".cmake"
             def outputPath = "${buildDir}/natives/${toolchainName}"
             mkdir outputPath
             exec {
