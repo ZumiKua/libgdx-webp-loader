@@ -18,8 +18,10 @@ buildscript {
 allprojects {
     apply plugin: "eclipse"
 
-    version = '1.0'
     ext {
+        majorVersion = 0
+        minorVersion = 1
+        patchVersion = 0
         appName = "webploader"
         gdxVersion = '1.10.0'
         roboVMVersion = '2.3.12'
@@ -28,6 +30,7 @@ allprojects {
         aiVersion = '1.8.2'
         gdxControllersVersion = '2.1.0'
     }
+    version = "${project.ext.majorVersion}.${project.ext.minorVersion}.${project.ext.patchVersion}"
 
     repositories {
         mavenLocal()
