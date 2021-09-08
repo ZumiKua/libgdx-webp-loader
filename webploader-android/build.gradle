@@ -18,7 +18,7 @@ android {
         externalNativeBuild {
             cmake {
 
-                arguments "-DJAVA_CLASS_NAME=com_github_zumikua_android_AndroidNativeInterface"
+                arguments "-DJAVA_CLASS_NAME=io_github_zumikua_android_AndroidNativeInterface"
                 cppFlags "-std=c++11"
             }
         }

@@ -29,7 +29,7 @@ tasks.register("buildNatives") {
                 workingDir outputPath
                 def cmake = "cmake"
                 def sourceDir = "${rootProject.projectDir}/webploader-android/src/main/cpp/"
-                def className = '-DJAVA_CLASS_NAME=com_github_zumikua_webploader_desktop_DesktopNativeInterface'
+                def className = '-DJAVA_CLASS_NAME=io_github_zumikua_webploader_desktop_DesktopNativeInterface'
                 def jniHeaderDir = "-DJNI_HEADER_DIR=${rootProject.projectDir}/jni_headers"
                 def toolchainDef = toolchain == 'host' ? "" : "-DCMAKE_TOOLCHAIN_FILE=${toolchainFile.absolutePath}"
                 commandLine cmake, "-G", "Ninja", className, jniHeaderDir, toolchainDef, sourceDir

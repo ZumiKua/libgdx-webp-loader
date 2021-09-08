@@ -86,7 +86,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.github.zumikua/com.github.zumikua.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.github.zumikua/io.github.zumikua.AndroidLauncher'
 }
 
 eclipse.project.name = appName + "-android"
