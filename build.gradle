@@ -10,10 +10,14 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.1'
-        
-
     }
 }
+
+plugins {
+    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
+}
+
+apply from: "${rootDir}/scripts/publish-root.gradle"
 
 allprojects {
     apply plugin: "eclipse"
@@ -30,7 +34,9 @@ allprojects {
         aiVersion = '1.8.2'
         gdxControllersVersion = '2.1.0'
     }
-    version = "${project.ext.majorVersion}.${project.ext.minorVersion}.${project.ext.patchVersion}"
+    version = "${project.ext.majorVersion}.${project.ext.minorVersion}.${project.ext.patchVersion}-SNAPSHOT"
+
+    group = "io.github.zumikua"
 
     repositories {
         mavenLocal()

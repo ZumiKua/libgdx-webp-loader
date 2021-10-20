@@ -37,7 +37,7 @@ import java.util.zip.ZipFile;
  * @author Nathan Sweet
  * @author Zumi Kua
  * */
-public class SharedLibraryLoader {
+class SharedLibraryLoader {
     static public boolean isWindows = System.getProperty("os.name").contains("Windows");
     static public boolean isLinux = System.getProperty("os.name").contains("Linux");
     static public boolean isMac = System.getProperty("os.name").contains("Mac");
@@ -48,20 +48,20 @@ public class SharedLibraryLoader {
 
     private String nativesJar;
 
-    public SharedLibraryLoader () {
+    SharedLibraryLoader () {
     }
 
     static String randomUUID () {
         return new UUID(random.nextLong(), random.nextLong()).toString();
     }
 
-    /** Fetches the natives from the given natives jar file. Used for testing a shared lib on the fly.
-     * @param nativesJar */
     public SharedLibraryLoader (String nativesJar) {
         this.nativesJar = nativesJar;
     }
 
-    /** Returns a CRC of the remaining bytes in the stream. */
+    /** Returns a CRC of the remaining bytes in the stream.
+     * @param input input stream
+     * @return the crc calculated. */
     public String crc (InputStream input) {
         if (input == null) throw new IllegalArgumentException("input cannot be null.");
         CRC32 crc = new CRC32();
@@ -79,7 +79,10 @@ public class SharedLibraryLoader {
         return Long.toString(crc.getValue(), 16);
     }
 
-    /** Maps a platform independent library name to a platform dependent name. */
+    /** Maps a platform independent library name to a platform dependent name.
+     * @param libraryName library name
+     * @return the mapped library name
+     */
     public String mapLibraryName (String libraryName) {
         if (isWindows) return "lib" + libraryName + (is64Bit ? "64.dll" : ".dll");
         if (isLinux) return "lib" + libraryName + (is64Bit ? "64.so" : ".so");
@@ -126,7 +129,9 @@ public class SharedLibraryLoader {
      * extraction fails and the file exists at java.library.path, that file is returned.
      * @param sourcePath The file to extract from the classpath or JAR.
      * @param dirName The name of the subdirectory where the file will be extracted. If null, the file's CRC will be used.
-     * @return The extracted file. */
+     * @return The extracted file.
+     * @throws IOException io error occurred.
+     */
     public File extractFile (String sourcePath, String dirName) throws IOException {
         try {
             String sourceCrc = crc(readFile(sourcePath));
@@ -150,7 +155,8 @@ public class SharedLibraryLoader {
     /** Extracts the specified file into the temp directory if it does not already exist or the CRC does not match. If file
      * extraction fails and the file exists at java.library.path, that file is returned.
      * @param sourcePath The file to extract from the classpath or JAR.
-     * @param dir The location where the extracted file will be written. */
+     * @param dir The location where the extracted file will be written.
+     * @throws IOException io error occurred.*/
     public void extractFileTo (String sourcePath, File dir) throws IOException {
         extractFile(sourcePath, crc(readFile(sourcePath)), new File(dir, new File(sourcePath).getName()));
     }
@@ -187,7 +193,10 @@ public class SharedLibraryLoader {
         return null;
     }
 
-    /** Returns true if the parent directories of the file can be created and the file can be written. */
+    /** Returns true if the parent directories of the file can be created and the file can be written.
+     * @param file the file to write
+     * @return whether the file can be written.
+     */
     private boolean canWrite (File file) {
         File parent = file.getParentFile();
         File testFile;
@@ -261,7 +270,9 @@ public class SharedLibraryLoader {
     }
 
     /** Extracts the source file and calls System.load. Attemps to extract and load from multiple locations. Throws runtime
-     * exception if all fail. */
+     * exception if all fail.
+     * @param sourcePath the source path of the library.
+     */
     private void loadFile (String sourcePath) {
         String sourceCrc = crc(readFile(sourcePath));
 
@@ -308,7 +319,9 @@ public class SharedLibraryLoader {
         }
     }
 
-    /** Sets the library as loaded, for when application code wants to handle libary loading itself. */
+    /** Sets the library as loaded, for when application code wants to handle libary loading itself.
+     * @param libraryName the name of the loaded library.
+     */
     static public synchronized void setLoaded (String libraryName) {
         loadedLibraries.add(libraryName);
     }

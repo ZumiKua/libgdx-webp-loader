@@ -1,0 +1,33 @@
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                // Mostly self-explanatory metadata
+                pom {
+                    name = PUBLISH_ARTIFACT_ID
+                    description = 'A WebP image loader for libGDX'
+                    url = 'https://github.com/ZumiKua/libgdx-webp-loader'
+                    licenses {
+                        license {
+                            name = 'MIT License'
+                            url = 'https://github.com/ZumiKua/libgdx-webp-loader/blob/main/LICENSE'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'ZumiKua'
+                            name = 'Xue Shenghao'
+                            email = 'wlzqkwd@Gmail.com'
+                        }
+                    }
+
+                    scm {
+                        connection = 'scm:git:github.com/ZumiKua/libgdx-webp-loader.git'
+                        developerConnection = 'scm:git:ssh://github.com/ZumiKua/libgdx-webp-loader.git'
+                        url = 'https://github.com/ZumiKua/libgdx-webp-loader/tree/main'
+                    }
+                }
+            }
+        }
+    }
+}

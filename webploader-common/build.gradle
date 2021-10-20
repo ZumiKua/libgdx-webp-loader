@@ -10,3 +10,11 @@ java {
 dependencies {
     implementation "com.badlogicgames.gdx:gdx:1.10.0"
 }
+
+ext {
+    PUBLISH_GROUP_ID = group
+    PUBLISH_VERSION = version
+    PUBLISH_ARTIFACT_ID = 'webploader-common'
+}
+
+apply from: "${rootProject.projectDir}/scripts/publish-module-java.gradle"

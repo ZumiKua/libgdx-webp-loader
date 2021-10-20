@@ -45,3 +45,11 @@ android {
 dependencies {
     api project(":webploader-common")
 }
+
+ext {
+    PUBLISH_GROUP_ID = group
+    PUBLISH_VERSION = version
+    PUBLISH_ARTIFACT_ID = 'webploader-android'
+}
+
+apply from: "${rootProject.projectDir}/scripts/publish-module-android.gradle"
