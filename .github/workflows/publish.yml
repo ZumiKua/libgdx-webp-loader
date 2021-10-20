@@ -1,0 +1,17 @@
+name: publish
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo apt update
+      - run: sudo apt install -y mingw-w64 ninja-build gcc-multilib g++-multilib
+      - uses: actions/checkout@v2
+      - run: chmod +x ./gradlew
+      - run: ./gradlew webploader-common:publishReleasePublicationToSonatypeRepository webploader-android:publishReleasePublicationToSonatypeRepository
+      - run: >
+          ./gradlew webploader-desktop:publishReleasePublicationToSonatypeRepository
+          -Ptoolchains=host,./.github/toolchains/linux32.cmake,./.github/toolchains/mingw32.cmake,./.github/toolchains/mingw64.cmake
