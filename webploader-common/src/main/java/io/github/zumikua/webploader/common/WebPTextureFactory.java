@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.TextureData;
 
 public class WebPTextureFactory {
 
@@ -52,5 +53,17 @@ public class WebPTextureFactory {
         Pixmap pixmap = mPixmapFactory.createPixmap(file);
         WebPFileTextureData data = new WebPFileTextureData(file, pixmap, format, useMipMaps, mPixmapFactory);
         return new Texture(data);
+    }
+
+    /**
+     * create a TextureData from the webp file
+     * @param file webp file
+     * @param format texture format
+     * @param genMipMaps whether to generate mipmaps
+     * @return the TextureData created.
+     */
+    public TextureData createTextureData(FileHandle file, Pixmap.Format format, boolean genMipMaps) {
+        Pixmap pixmap = mPixmapFactory.createPixmap(file);
+        return new WebPFileTextureData(file, pixmap, format, genMipMaps, mPixmapFactory);
     }
 }

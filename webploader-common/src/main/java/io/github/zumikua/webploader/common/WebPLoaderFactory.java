@@ -10,6 +10,7 @@ public class WebPLoaderFactory {
         mNativeInterface = nativeInterface;
         mPixmapFactory = new WebPPixmapFactory(mNativeInterface);
         mTextureFactory = new WebPTextureFactory(mPixmapFactory);
+
     }
 
     /**
