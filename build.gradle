@@ -34,7 +34,7 @@ allprojects {
         aiVersion = '1.8.2'
         gdxControllersVersion = '2.1.0'
     }
-    version = "${project.ext.majorVersion}.${project.ext.minorVersion}.${project.ext.patchVersion}-SNAPSHOT"
+    version = "${project.ext.majorVersion}.${project.ext.minorVersion}.${project.ext.patchVersion}"
 
     group = "io.github.zumikua"
 
