@@ -3,7 +3,7 @@
 
 # Sets the minimum version of CMake required to build the native library.
 
-cmake_minimum_required(VERSION 3.10.2)
+cmake_minimum_required(VERSION 3.13)
 
 # Declares and names the project.
 
@@ -38,6 +38,11 @@ target_include_directories( webploader-native PRIVATE ${lib_src_DIR}/src/webp )
 target_link_libraries(webploader-native webpdecoder)
 
 target_compile_definitions(webploader-native PRIVATE JAVA_CLASS_NAME=${JAVA_CLASS_NAME})
+
+if(ANDROID)
+    target_link_options(webploader-native PRIVATE "-Wl,-z,max-page-size=16384")
+    target_link_options(webploader-native PRIVATE "-Wl,-z,common-page-size=16384")
+endif()
 
 #NDK will handle jni.h for us.
 if(NOT ANDROID)

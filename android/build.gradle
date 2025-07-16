@@ -1,6 +1,5 @@
 android {
-    buildToolsVersion "29.0.3"
-    compileSdkVersion 30
+    namespace "io.github.zumikua"
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -18,8 +17,9 @@ android {
     }
     defaultConfig {
         applicationId "com.github.zumikua"
-        minSdkVersion 14
-        targetSdkVersion 30
+        compileSdk 36
+        minSdkVersion 23
+        targetSdkVersion 36
         versionCode 1
         versionName "1.0"
     }

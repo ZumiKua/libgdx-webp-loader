@@ -9,7 +9,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'com.android.tools.build:gradle:8.11.2'
     }
 }
 
@@ -24,10 +24,10 @@ allprojects {
 
     ext {
         majorVersion = 0
-        minorVersion = 1
+        minorVersion = 2
         patchVersion = 0
         appName = "webploader"
-        gdxVersion = '1.10.0'
+        gdxVersion = '1.13.5'
         roboVMVersion = '2.3.12'
         box2DLightsVersion = '1.5'
         ashleyVersion = '1.7.3'
@@ -40,6 +40,7 @@ allprojects {
 
     repositories {
         mavenLocal()
+        mavenCentral()
         maven { url "https://maven.aliyun.com/repository/central" }
         google()
         gradlePluginPortal()
