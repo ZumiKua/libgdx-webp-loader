@@ -6,13 +6,13 @@ jobs:
         steps:
             - run: sudo apt update
             - run: sudo apt install -y mingw-w64 ninja-build gcc-multilib g++-multilib
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
             - run: chmod +x ./gradlew
             - run: ./gradlew webploader-common:build webploader-android:assembleRelease
             - run: >
                   ./gradlew webploader-desktop:build
                   -Ptoolchains=host,./.github/toolchains/linux32.cmake,./.github/toolchains/mingw32.cmake,./.github/toolchains/mingw64.cmake
-            - uses: actions/upload-artifact@v2
+            - uses: actions/upload-artifact@v4
               with:
                   name: artifacts
                   path: |
