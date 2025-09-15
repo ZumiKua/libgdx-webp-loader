@@ -10,8 +10,8 @@ jobs:
       - run: sudo apt update
       - run: sudo apt install -y mingw-w64 ninja-build gcc-multilib g++-multilib
       - uses: lukka/get-cmake@latest
-              with: 
-                cmakeVersion: "3.18.1"
+        with: 
+          cmakeVersion: "3.18.1"
       - uses: actions/checkout@v4
       - run: chmod +x ./gradlew
       - run: ./gradlew webploader-common:publishReleasePublicationToSonatypeRepository webploader-android:publishReleasePublicationToSonatypeRepository
