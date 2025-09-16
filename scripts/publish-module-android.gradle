@@ -15,7 +15,9 @@ task androidSourcesJar(type: Jar) {
     }
 }
 artifacts {
-    archives androidSourcesJar
+    if (!project.plugins.findPlugin("com.android.library")) {
+        archives androidSourcesJar
+    }
 }
 
 afterEvaluate {
@@ -33,9 +35,9 @@ afterEvaluate {
                     from components.release
                 } else {
                     from components.java
+                    artifact androidSourcesJar
                 }
 
-                artifact androidSourcesJar
             }
         }
     }
