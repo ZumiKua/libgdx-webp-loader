@@ -20,7 +20,7 @@ project(":desktop") {
 
         ...
 
-        implementation "io.github.zumikua:webploader-desktop:0.1.0"
+        implementation "io.github.zumikua:webploader-desktop:0.2.0"
     }
 }
 
@@ -30,7 +30,7 @@ project(":android") {
 
         ...
 
-        implementation "io.github.zumikua:webploader-android:0.1.0"
+        implementation "io.github.zumikua:webploader-android:0.2.0"
     }
 }
 
@@ -42,7 +42,7 @@ project(":core") {
 
         ...
 
-        implementation "io.github.zumikua:webploader-common:0.1.0"
+        implementation "io.github.zumikua:webploader-common:0.2.0"
     }
 }
 
